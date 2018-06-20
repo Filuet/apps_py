@@ -137,10 +137,156 @@ def insert_inbound_items(header_id, rows):
             sql = 'INSERT INTO ExchangeDB.dbo.tblInboundOrderDetail \
             (HeaderID,SKU,SSCC,UnitCode,DateExpiry,QtyExpected,QtyReceived,LOT) VALUES '
             sql += "({0},'{1}','{2}','{3}',{4},{5},{5},'{6}')".format(header_id,
-                                                                      row['PLItemNumber'], row['PLPalletNo'], 'PC', _t2 if _t2 != '' else 'NULL', row['PLQuantity'], row['PLLotNumber'])
+                                                                      check_sku(row['PLItemNumber'],'99'), row['PLPalletNo'], 'PC', _t2 if _t2 != '' else 'NULL', row['PLQuantity'], row['PLLotNumber'])
             logging.debug(sql)
             cursor.execute(sql)
             cursor.commit()
+
+def check_sku(sku, _type):
+    ship_to = ['01', '02', '04', '05', '14', '19', '21', '22']
+    res = sku
+    if _type in ship_to:
+        if sku == '__0141':
+            res = '0951'
+        if sku == '__0143':
+            res = '0953'
+        if sku == '2653':
+            res = '0948'
+
+    if sku == '7051NL':
+        res = '7051RU'
+    elif sku == '7640EU':
+        res = '7640RU'
+    elif sku == '8601E':
+        res = '8601RS'
+    elif sku == '8602E':
+        res = '8602RS'
+    elif sku == '8501RS':
+        res = '8501RU'
+    elif sku == '565U': 
+        res = '110Q'
+    elif sku == '566U': 
+        res = '111Q'
+    elif sku == '567U': 
+        res = '112Q'
+    elif sku == '568U': 
+        res = '114Q'
+    elif sku == '569U': 
+        res = '115Q'
+    elif sku == '570U': 
+        res = '116Q'
+    elif sku == '571U': 
+        res = '131Q'
+    elif sku == '572U': 
+        res = '132Q'
+    elif sku == '573U': 
+        res = '134Q'
+    elif sku == '574U': 
+        res = '135Q'
+    elif sku == '575U': 
+        res = '136Q'
+    elif sku == '576U': 
+        res = '147Q'
+    elif sku == '577U': 
+        res = '148Q'
+    elif sku == '578U': 
+        res = '141Q'
+    elif sku == '579U': 
+        res = '142Q'
+    elif sku == '580U': 
+        res = '143Q'
+    elif sku == '581U': 
+        res = '144Q'
+    elif sku == '582U': 
+        res = '154Q'
+    elif sku == '583U': 
+        res = '155Q'
+    elif sku == '584U': 
+        res = '156Q'
+    elif sku == '585U': 
+        res = '166Q'
+    elif sku == '586U': 
+        res = '167Q'
+    elif sku == '587U': 
+        res = '168Q'
+    elif sku == '588U': 
+        res = '169Q'
+    elif sku == '589U': 
+        res = '170Q'
+    elif sku == '590U': 
+        res = '171Q'
+    elif sku == '591U': 
+        res = '172Q'
+    elif sku == '592U': 
+        res = 'B229'
+    elif sku == '593U': 
+        res = 'B230'
+    elif sku == '594U': 
+        res = 'B231'
+    elif sku == '595U': 
+        res = 'B241'
+    elif sku == '596U': 
+        res = 'B242'
+    elif sku == '597U': 
+        res = 'B243'
+    elif sku == '598U': 
+        res = 'B244'
+    elif sku == '599U': 
+        res = 'B245'
+    elif sku == '600U': 
+        res = 'B246'
+    elif sku == '601U': 
+        res = 'B247'
+    elif sku == '602U': 
+        res = 'B348'
+    elif sku == '603U': 
+        res = 'B349'
+    elif sku == '604U': 
+        res = 'B350'
+    elif sku == '605U': 
+        res = 'B422'
+    elif sku == '606U': 
+        res = 'B436'
+    elif sku == '607U': 
+        res = 'B437'
+    elif sku == '608U': 
+        res = 'B438'
+    elif sku == '609U': 
+        res = 'B475'
+    elif sku == '610U': 
+        res = 'B476'
+    elif sku == '611U': 
+        res = 'B477'
+    elif sku == '612U': 
+        res = 'B478'
+    elif sku == '613U': 
+        res = 'B479'
+    elif sku == '614U': 
+        res = 'B480'
+    elif sku == '615U': 
+        res = 'B481'
+    elif sku == '616U': 
+        res = 'B482'
+    elif sku == '617U': 
+        res = 'B491'
+    elif sku == '618U': 
+        res = 'B492'
+    elif sku == '619U': 
+        res = 'B493'
+    elif sku == '620U': 
+        res = 'B494'
+    elif sku == '621U': 
+        res = 'B495'
+    elif sku == '622U': 
+        res = 'B496'
+    elif sku == '623U': 
+        res = 'B497'
+    elif sku == '624U': 
+        res = 'Y640'
+    elif sku == '625U': 
+        res = 'Y641'
+
+    return res
 
 
 def do_zip_file(file_name, zip_file_name):
