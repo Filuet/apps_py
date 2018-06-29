@@ -332,7 +332,7 @@ def get_xml_file(file_path):
         ' ' + obj.ORDERS.ORDER.SHIPTO.STREETADDRESS2.cdata
     header['ADDRESS'] = adr.strip().upper()
     header['INDEX'] = obj.ORDERS.ORDER.SHIPTO.POSTALCODE.cdata
-    header['CITY'] = obj.ORDERS.ORDER.SHIPTO.CITY.cdata.strip().upper()
+    header['CITY'] = obj.ORDERS.ORDER.SHIPTO.CITY.cdata.strip().upper()[:31]
     header['STATE'] = obj.ORDERS.ORDER.SHIPTO.STATE.cdata.strip().upper()
     header['PKP'] = obj.ORDERS.ORDER.SHIPTO.PKP_LOCATIONID.cdata
     header['TYPE'] = order_type(
