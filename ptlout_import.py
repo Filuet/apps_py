@@ -299,7 +299,7 @@ def get_xml_file(file_path):
             res = '19'
         elif route == 'SN1':
             res = '19'
-        elif route == 'QIW':
+        elif route == 'EST':
             res = '21'
         elif route == 'HRM':
             res = '14'
@@ -332,7 +332,7 @@ def get_xml_file(file_path):
         ' ' + obj.ORDERS.ORDER.SHIPTO.STREETADDRESS2.cdata
     header['ADDRESS'] = adr.strip().upper()
     header['INDEX'] = obj.ORDERS.ORDER.SHIPTO.POSTALCODE.cdata
-    header['CITY'] = obj.ORDERS.ORDER.SHIPTO.CITY.cdata.strip().upper()[:31]
+    header['CITY'] = obj.ORDERS.ORDER.SHIPTO.CITY.cdata.strip().upper()[:30]
     header['STATE'] = obj.ORDERS.ORDER.SHIPTO.STATE.cdata.strip().upper()
     header['PKP'] = obj.ORDERS.ORDER.SHIPTO.PKP_LOCATIONID.cdata
     header['TYPE'] = order_type(
