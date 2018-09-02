@@ -305,6 +305,8 @@ def get_xml_file(file_path):
             res = '14'
         elif route == 'HDF':
             res = '20'
+        elif route == 'PPF':
+            res = '16'
         elif route == 'PKP' or route == 'PPF':
             res = '05' if pkp[3:4] == '2' else '04'
 
