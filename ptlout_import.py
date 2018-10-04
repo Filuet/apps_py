@@ -9,6 +9,7 @@ import logging
 import untangle
 import pyodbc
 from ftplib import FTP
+from logging.handlers import RotatingFileHandler
 
 
 def conn_str():
@@ -20,7 +21,9 @@ def init_logger():
     ''' init logger with unicode support '''
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.INFO)
-    handler = logging.FileHandler('ptlout_import.log', 'a', 'utf-8')
+    # handler = logging.FileHandler('ptlout_import.log', 'a', 'utf-8')
+    handler = RotatingFileHandler(
+        filename='ptlout_import.log', maxBytes=5000000, backupCount=5, encoding='utf-8')
     formatter = logging.Formatter(
         '%(asctime)s %(levelname)s\t%(funcName)s() <%(lineno)s> %(message)s')
     handler.setFormatter(formatter)
@@ -123,7 +126,7 @@ def move_files_ftp(path_d):
 
 def get_xml_file(file_path):
     def check_sku(sku, _type):
-        ship_to = ['01', '02', '04', '05', '14', '19', '21', '22']
+        ship_to = ['01', '02', '04', '05', '14', '16', '19', '21', '22']
         res = sku
         if _type in ship_to:
             if sku == '__0141':
@@ -305,9 +308,9 @@ def get_xml_file(file_path):
             res = '14'
         elif route == 'HDF':
             res = '20'
-        elif route == 'PPF':
+        elif route == 'PPF' or route == 'QIW':
             res = '16'
-        elif route == 'PKP' or route == 'PPF':
+        elif route == 'PKP':
             res = '05' if pkp[3:4] == '2' else '04'
 
         # if (len(index) > 2) and (res == '02'):

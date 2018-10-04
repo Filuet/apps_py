@@ -1,5 +1,6 @@
 Ports/
 Backup/
-*.log
+*.log.*
 .vscode/
 *.txt
+*.log
