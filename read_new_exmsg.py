@@ -14,6 +14,7 @@ def conn_str():
     # return 'DRIVER={SQL Server};SERVER=RU-LOB-SQL01;DATABASE=ExchangeDB;Integrated Security=SSPI;'
     return 'DRIVER={SQL Server};SERVER=RU-LOB-SQL01;DATABASE=ExchangeDB;UID=exuser;PWD=good4you'
 
+
 def init_logger():
     ''' init logger with unicode support '''
     from logging.handlers import RotatingFileHandler
@@ -26,6 +27,7 @@ def init_logger():
         '%(asctime)s %(levelname)s\t%(funcName)s() <%(lineno)s> %(message)s')
     handler.setFormatter(formatter)
     root_logger.addHandler(handler)
+
 
 def path_init_2d():
     ''' Initialization of used paths to work with files '''
@@ -55,12 +57,13 @@ def send_file_ftp(file_name):
             ftp.storbinary('STOR ' + os.path.basename(file_name), file)
             logging.info('File %s copied to ftp', os.path.basename(file_name))
 
+
 def do_zip_file(file_name, zip_file_name):
     ''' add file to zip archive '''
     try:
         os.makedirs(os.path.dirname(zip_file_name), exist_ok=True)
         logging.info('ZIP backup %s --> %s',
-                    os.path.basename(file_name), zip_file_name)
+                     os.path.basename(file_name), zip_file_name)
         with zipfile.ZipFile(zip_file_name, 'a') as zip_file:
             zip_file.write(file_name, os.path.basename(file_name))
     except Exception as ex:
@@ -101,7 +104,8 @@ def start_process():
         nonlocal path_source_2d
         nonlocal path_backup_2d
 
-        file_name_today = 'RUSN{0:%Y%m%d230000}.DAT'.format(datetime.date.today())
+        file_name_today = 'RUSN{0:%Y%m%d230000}.DAT'.format(
+            datetime.date.today())
 
         files = os.listdir(path_source_2d)
         for _t1 in files:
@@ -121,7 +125,7 @@ def start_process():
         nonlocal path_source_2d
         msg_status = 2
 
-        sql = 'SELECT tbd.OrderNo,tbd.Barcode FROM  dbo.ExMsg em INNER JOIN dbo.tblBarcode2D tbd ON em.ObjectID = tbd.id WHERE em.ID = {0};'.format(
+        sql = 'SELECT tbd.OrderNo, tbd.Barcode FROM dbo.ExMsg em WITH (nolock) INNER JOIN dbo.tblBarcode2D tbd WITH (nolock) ON em.ObjectID = tbd.id WHERE em.ID = {0};'.format(
             msg_id)
         with pyodbc.connect(conn_str()) as conn:
             cursor = conn.cursor()

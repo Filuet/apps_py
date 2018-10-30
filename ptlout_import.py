@@ -302,13 +302,13 @@ def get_xml_file(file_path):
             res = '19'
         elif route == 'SN1':
             res = '19'
-        elif route == 'EST':
+        elif route == 'EST' or route == 'PPF':
             res = '21'
         elif route == 'HRM':
             res = '14'
         elif route == 'HDF':
             res = '20'
-        elif route == 'PPF' or route == 'QIW':
+        elif route == 'QIW':
             res = '16'
         elif route == 'PKP':
             res = '05' if pkp[3:4] == '2' else '04'
