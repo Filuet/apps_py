@@ -14,6 +14,18 @@ def conn_str():
     # return 'DRIVER={SQL Server};SERVER=RU-LOB-SQL01;DATABASE=ExchangeDB;Integrated Security=SSPI;'
     return 'DRIVER={SQL Server};SERVER=RU-LOB-SQL01;DATABASE=ExchangeDB;UID=exuser;PWD=good4you'
 
+def init_logger():
+    ''' init logger with unicode support '''
+    from logging.handlers import RotatingFileHandler
+
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
+    handler = RotatingFileHandler(
+        filename='read_new_exmsg.log', maxBytes=5000000, backupCount=5, encoding='utf-8')
+    formatter = logging.Formatter(
+        '%(asctime)s %(levelname)s\t%(funcName)s() <%(lineno)s> %(message)s')
+    handler.setFormatter(formatter)
+    root_logger.addHandler(handler)
 
 def path_init_2d():
     ''' Initialization of used paths to work with files '''
@@ -79,8 +91,9 @@ def insert_new_status(msg_id, msg_status):
 
 def start_process():
     ''' get new exmsg '''
-    logging.basicConfig(filename='read_new_exmsg.log', level=logging.DEBUG,
-                        format=' %(asctime)s %(levelname)s \t%(funcName)s() <%(lineno)s> %(message)s')
+    # logging.basicConfig(filename='read_new_exmsg.log', level=logging.DEBUG,
+    #                     format=' %(asctime)s %(levelname)s \t%(funcName)s() <%(lineno)s> %(message)s')
+    init_logger()
     logging.info('START')
     path_source_2d, path_backup_2d = path_init_2d()
 
@@ -130,7 +143,7 @@ def start_process():
     try:
         rows = read_new_exmsg()
         for row in rows:
-            print(row)
+            # print(row)
             msg_status = 2
             if row[1] == 21:  # msg for 2d code
                 msg_status = process_2d(row[0])
