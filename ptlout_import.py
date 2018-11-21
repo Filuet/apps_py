@@ -313,9 +313,9 @@ def get_xml_file(file_path):
         elif route == 'PKP':
             res = '05' if pkp[3:4] == '2' else '04'
 
-        # if (len(index) > 2) and (res == '02'):
-        #     if index[:3] == '300':
-        #         res = '19'
+        if (len(index) > 2) and (res == '02'):
+            if index[:3] == '689':
+                res = '19'
         #     elif index[:3] == '301':
         #         res = '19'
         #     elif index[:3] == '172':

@@ -3,4 +3,4 @@ Backup/
 *.log.*
 .vscode/
 *.txt
-*.log
+*.log*
