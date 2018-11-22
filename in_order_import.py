@@ -285,6 +285,8 @@ def check_sku(sku, _type):
         res = 'Y640'
     elif sku == '625U': 
         res = 'Y641'
+    elif sku == '311A': 
+        res = '311ARU'
 
     return res
 
