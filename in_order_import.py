@@ -163,6 +163,8 @@ def check_sku(sku, _type):
         res = '8602RS'
     elif sku == '8501RS':
         res = '8501RU'
+    elif sku == '8711RU':
+        res = '8711EU'
     elif sku == '565U': 
         res = '110Q'
     elif sku == '566U': 
