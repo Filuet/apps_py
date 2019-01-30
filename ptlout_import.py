@@ -316,6 +316,13 @@ def get_xml_file(file_path):
         if (len(index) > 2) and (res == '02'):
             if index[:3] == '689':
                 res = '19'
+            
+            if(datetime.datetime.now()>datetime.datetime(2019,10,1,0,0,1)): # с 01/10/2019
+                if index[:3] == '101': # москва
+                    res = '19'
+                elif index[:3] == '141': # московская область
+                    res = '19'
+  
         #     elif index[:3] == '301':
         #         res = '19'
         #     elif index[:3] == '172':
