@@ -293,11 +293,9 @@ def get_xml_file(file_path):
         return item
 
     def order_type(route, pkp, index='000000'):
-        res = '02'
+        res = '19' # by default CSE
         if route == 'RUS':
             res = '01'
-        elif route == 'CSE':
-            res = '19'
         elif route == 'SA1':
             res = '19'
         elif route == 'SN1':
@@ -312,17 +310,13 @@ def get_xml_file(file_path):
             res = '16'
         elif route == 'PKP':
             res = '05' if pkp[3:4] == '2' else '04'
+        # elif route == 'CSE':
+        #     res = '19'
 
-        if (len(index) > 2) and (res == '02'):
-            if index[:3] == '689':
-                res = '19'
-            
-            if(datetime.datetime.now()>datetime.datetime(2019,2,1,0,0,1)): # с 01/10/2019
-                if index[:3] == '101': # москва
-                    res = '19'
-                elif index[:3] == '141': # московская область
-                    res = '19'
-  
+
+        # if (len(index) > 2) and (res == '02'):
+        #     if index[:3] == '689':
+        #         res = '19'  
         #     elif index[:3] == '301':
         #         res = '19'
         #     elif index[:3] == '172':
