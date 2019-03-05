@@ -23,7 +23,7 @@ def init_logger():
     root_logger.setLevel(logging.INFO)
     # handler = logging.FileHandler('ptlout_import.log', 'a', 'utf-8')
     handler = RotatingFileHandler(
-        filename='ptlout_import.log', maxBytes=5000000, backupCount=5, encoding='utf-8')
+        filename='ptlout_import.log', maxBytes=5000000, backupCount=1, encoding='utf-8')
     formatter = logging.Formatter(
         '%(asctime)s %(levelname)s\t%(funcName)s() <%(lineno)s> %(message)s')
     handler.setFormatter(formatter)

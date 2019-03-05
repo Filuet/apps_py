@@ -22,7 +22,7 @@ def init_logger():
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.INFO)
     handler = RotatingFileHandler(
-        filename='read_new_exmsg.log', maxBytes=5000000, backupCount=5, encoding='utf-8')
+        filename='read_new_exmsg.log', maxBytes=5000000, backupCount=1, encoding='utf-8')
     formatter = logging.Formatter(
         '%(asctime)s %(levelname)s\t%(funcName)s() <%(lineno)s> %(message)s')
     handler.setFormatter(formatter)
